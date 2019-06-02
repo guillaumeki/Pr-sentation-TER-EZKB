@@ -1,0 +1,32 @@
+\begin{frame}{Local core chase}
+\begin{itemize}
+    \item Similaire au \textit{core chase} ;
+    \item la différence se situe lors du calcul du \textit{core} : on "gèle" la base de faits, on ajoute les nouveaux faits, on calcule le \textit{core} et on dégèle.
+\end{itemize}
+    
+\end{frame}
+
+\begin{frame}{Exemple d'exécution du \textit{local core chase}}
+    
+$\mathcal{F}=\{ p(X,a)\}$ \\
+$\mathcal{R} = \{ R = p(X,Y) \rightarrow p(b,Y),p(b,Z) \}$
+
+\begin{center}
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
+                    semithick]
+  \tikzstyle{every state}=[fill=green!20,circle,text=black,minimum size=0.7cm]
+
+  \node[state]				(A)              			{$a$};
+  \node[state]				(B)  [below right of=A]		{$b$};
+  \node[state,fill=orange]		(X)  [below left of=A]  {$X$};
+  \node[state,fill=red]		(Z)  [above right of=B]		{$Z_1$};
+    
+  \path (B) edge 								node[above] {$p$} 	(A);
+  \path (B) edge 	[color=red]					node[above] {$p$} 	(Z); 
+  \path (X) edge 	[color=orange]				node[above] {$p$} 	(A); 
+  
+  
+\end{tikzpicture}
+\end{center}
+\
+\end{frame}

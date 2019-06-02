@@ -1,0 +1,32 @@
+\begin{frame}{Core chase}
+\begin{itemize}
+    \item Le critère d'applicabilité est le même que celui du \textit{restricted chase} ;
+    \item On rajouter en plus le calcul du \textit{core} de la base de faits à la fin de chaque étape.
+\end{itemize}
+    
+\end{frame}
+
+\begin{frame}{Exemple d'exécution du \textit{core chase}}
+    
+$\mathcal{F}=\{ p(a,b)\}$ \\
+$\mathcal{R} = \{ R = p(X,Y) \rightarrow q(Y,Y),q(Y,Z) \}$
+
+\begin{center}
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.8cm,
+                    semithick]
+  \tikzstyle{every state}=[fill=green!20,circle,text=black,minimum size=0.7cm]
+
+  \node[state]				(A)              			{$a$};
+  \node[state]				(B)  [right of=A]  			{$b$};
+  \node[state,fill=red]		(C)  [right of=B]			{$Z_1$};
+    
+  \path (A) edge 								node[above] {$p$} 	(B);
+  \path (B) edge 	[loop]						node[above] {$q$} 	(B);
+  \path (B) edge 	[color=red]					node[above] {$q$} 	(C); 
+  
+  
+\end{tikzpicture}
+\end{center}
+\
+
+\end{frame}

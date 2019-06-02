@@ -1,0 +1,45 @@
+\documentclass[utf8]{beamer}
+
+\input{preambule}
+
+\begin{document}
+\maketitle
+
+\frame{\frametitle{Table des matières}\tableofcontents}
+
+\section{Introduction}
+    \input{intro}
+
+\section{Présentation des chases}
+    \frame{\frametitle{Table des matières}\tableofcontents[currentsection]}
+    \input{chase.tex}
+    \subsection{Restricted chase}
+        \input{restricted.tex}
+    \subsection{Core chase}
+        \input{core.tex}
+    \subsection{Local core chase}
+        \input{localcore.tex}
+\section{Implémentation des chases}
+    \frame{\frametitle{Table des matières}\tableofcontents[currentsection]}
+    \subsection{Présentation de Graal}
+        \input{pres_graal.tex}
+    \subsection{Implémentation}
+        \input{implementation.tex}
+    \subsection{Expérimentations}
+        \input{expe.tex}
+\section{Démonstration}
+    \frame{\frametitle{Table des matières}\tableofcontents[currentsection]}
+    \input{demo.tex}
+\section{Règles}
+    \frame{\frametitle{Table des matières}\tableofcontents[currentsection]}
+    \input{regles.tex} 
+    \subsection{Redondances intra-règles}
+    \input{red_intra.tex}
+    \subsection{Redondances inter-règles}
+    \input{red_inter.tex}
+    \subsection{Expérimentations}
+    \input{red_expe.tex}
+\section{Conclusion}
+    \input{conclusion.tex}
+
+\end{document}

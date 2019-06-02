@@ -1,0 +1,85 @@
+% Packages
+\usepackage[T1]{fontenc}
+\usepackage[francais]{babel}
+\usepackage{array}
+\usepackage{verbatim}
+\usepackage{graphics} %inclusion de figures
+\usepackage{graphicx} %inclusion de figures
+\usepackage{pstricks,pst-node} %Graphiques
+\usepackage{booktabs}
+\usepackage{minted}
+\usepackage{rotating}
+\usepackage{wrapfig}
+\usepackage{graphicx}
+\usepackage[inline]{asymptote} 
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\newcommand{\eod}{\ensuremath{\hfill\dashv}}
+\newcommand{\eop}{\ensuremath{\hfill\clubsuit}}
+\newcommand{\fun}[1]{\ensuremath{\mbox{\it #1}}}
+\newcommand{\expo}[2]{{#1}^{\mbox{\scriptsize \sl #2}}}
+\newcommand{\var}{\ensuremath{\mathbf{var}}\xspace}
+\newcommand{\exv}{\ensuremath{\mathbf{exv}}\xspace}
+\newcommand{\dsv}{\ensuremath{\mathbf{dsv}}\xspace}
+\newcommand{\term}{\ensuremath{\mathbf{term}}\xspace}
+\newcommand{\pred}{\ensuremath{\mathbf{pred}}\xspace}
+\newcommand{\fr}{\ensuremath{\mathbf{fr}}\xspace}
+\newcommand{\cnst}{\ensuremath{\mathbf{cnst}}\xspace}
+\newcommand{\Vars}{\ensuremath{\mathsf{Vars}}\xspace}
+\newcommand{\Pvars}{\ensuremath{\mathsf{Pvars}}\xspace}
+\newcommand{\Fvars}{\ensuremath{\mathsf{Fvars}}\xspace}
+\newcommand{\Terms}{\ensuremath{\mathsf{Terms}}\xspace}
+\newcommand{\Cons}{\ensuremath{\mathsf{Const}}\xspace}
+\newcommand{\Preds}{\ensuremath{\mathsf{Preds}}\xspace}
+\newcommand{\ic}{\ensuremath{\cdot\{}\xspace}
+\newcommand{\ci}{\ensuremath{\}\cdot}\xspace}
+\newcommand{\id}{\ensuremath{:\hspace{-1.56mm}\{}\xspace}
+\newcommand{\di}{\ensuremath{\}\hspace{-1.56mm}:}\xspace}
+\newcommand{\bet}{\ensuremath{\beta^{\diamond}}\xspace}
+\newcommand{\sep}{\ensuremath{\mathbf{sep}}\xspace}
+\newcommand{\vect}[1]{\mathbf{#1}}
+\newcommand{\vars}[1]{\fun{vars}{(#1)}}
+\newcommand{\terms}[1]{\fun{terms}{(#1)}}
+\newcommand{\atoms}[1]{\fun{atoms}{(#1)}}
+\newcommand{\type}[1]{\fun{type}{(#1)}}
+\newcommand{\const}{a}
+\newcommand{\atom}{\alpha}
+\usepackage{tikz}
+\usetikzlibrary{arrows,positioning,automata,shadows,fit,shapes,calc, shapes, backgrounds}
+
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1cm}}
+
+\newcommand{\pt}[5]{\dotnode(#2,#3){#1} \uput[#4](#2,#3){#5}}
+\newcommand{\ptt}[5]{\dotnode(#2,#3){#1} \uput[#4](#2,#3){{\tiny #5}}}
+
+% Style
+\usepackage{pgfpages}
+\usetheme{Montpellier}
+\usecolortheme{whale}
+\setbeamertemplate{footline}[page number]
+
+% Informations
+\title{Suppression des redondances dans les bases de connaissances}
+\author{
+  Leonardo \bsc{Moros} \\
+  Guillaume \bsc{Perution-Kihli} \\
+  Romain \bsc{Ricalens} \\
+  Julien \bsc{Rodriguez} \\
+  Rami \bsc{Younes}}
+
+% Tableaux
+\definecolor{GT1}{gray}{0.99}
+\definecolor{GT2}{gray}{0.95}
+\newcommand{\mc}[3]{\multicolumn{#1}{#2}{#3}}
+\newcommand{\mr}[2]{\begin{tabular}[x]{@{}c@{}}#1\\#2\end{tabular}}
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}m{#1}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}m{#1}}
+%\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}}
+
+% Divers
+\newcommand{\true}{\textcolor{orange}{1}}
+\newcommand{\false}{\textcolor{orange}{0}}
+\addto\captionsfrench{\def\figurename{{\bsc{Figure}}}}
+\addto\captionsfrench{\def\tablename{{\bsc{Tableau}}}}

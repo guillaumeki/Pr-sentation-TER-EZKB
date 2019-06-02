@@ -1,0 +1,35 @@
+
+
+\begin{frame}{Chaînage avant (\textit{chase})}
+    Le chaînage avant consiste à inférer des nouveaux faits à partir de la base de faits et de la base de règles, jusqu'à qu'il ne soit plus possible d'en inférer.
+    \begin{block}{Exemple}
+        $\mathcal{KB} = (\mathcal{F}, \mathcal{R})$
+        \\ $\mathcal{F} = \{estHumain(socrate)\}$
+        \\ $\mathcal{R} = \{r_1 = estHumain(X) \rightarrow estMortel(X)\}$.
+        \\ On peut inférer : $estMortel(socrate)$.
+        \\ On obtient $\mathcal{F}^* = \{estHumain(socrate), estMortel(socrate)\}$, et on ne peut plus rien inférer de nouveau.
+    \end{block}
+\end{frame}
+
+\begin{frame}{Déclencheur, application}
+    \begin{block}{Déclencheur}
+        Un délencheur est un couple $(R,h)$ où $R = B \rightarrow H$ est une règle et $h$ un homomorphisme permettant d'envoyer $B$, le corps de la règle $R$, sur la base de faits.
+    \end{block}
+    \begin{block}{Application d'un déclencheur}
+        Pour appliquer $(R,h)$, on crée une substitution $h^{safe}$ qui est une extension de $h$ où les variables existentielles de la tête de la règle sont envoyées sur des variables n'existant pas dans la base de faits.
+    \end{block}
+    \begin{block}{Exemple}
+        $\mathcal{KB} = (\mathcal{F} = \{p(a,b),q(Y)\}, \{r_1 = p(a,X) \rightarrow p(X,Y)\})$ \\
+        $(r_1,h = \{(X \mapsto b)\})$ et
+        $h^{safe} = \{(X \mapsto b), (Y \mapsto Y_1)\}$ \\
+        $\mathcal{F}^* = \mathcal{F} \cup h^{safe}(p(X,Y)) = \{p(a,b),q(Y),p(a,Y_1)\}$
+    \end{block}
+\end{frame}
+
+\begin{frame}{Chaînage avant en largeur}
+    \begin{itemize}
+        \item On cherche tous les déclencheurs sur une base de faits $\mathcal{F}_i$ ;
+        \item On les applique tous pour obtenir une base $\mathcal{F}_{i+1}$ ;
+        \item On recommence tant qu'il est possible d'ajouter des nouveaux faits.
+    \end{itemize}
+\end{frame}

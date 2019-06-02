@@ -1,0 +1,21 @@
+\begin{frame}{Objectifs de la nouvelle implémentation}
+    \begin{itemize}
+        \item Proposer une implémentation destinée à remplacer celle existante.
+        \item Être suffisamment flexible pour pouvoir implémenter tous les chaînages avant étudiés et pour pouvoir évoluer facilement ;
+        \item Être mieux structurée que l'implémentation existante ;
+        \item Essayer d'améliorer les performances ;
+    \end{itemize}
+    Ces objectifs ont été globalement atteints.
+\end{frame}
+
+\begin{frame}{Structuration}
+    \begin{itemize}
+        \item Des classes principales implémentant le chaînage avant ;
+        \item Auxquelles on fournit :
+        \begin{itemize}
+            \item Une classe applicatrice des règles (flexibilité importante, par exemple version spécifique à une base de donnée) ;
+            \item Des classes implémentant les extensions (locale et globale) ;
+            \item Une classe vérifiant le critère d'applicabilité.
+        \end{itemize}
+    \end{itemize}
+\end{frame}

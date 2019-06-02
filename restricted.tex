@@ -1,0 +1,19 @@
+\begin{frame}{Restricted chase}
+   \only<1>{ On n'applique un déclencheur $(r = corps \rightarrow tete,h)$ qu'à deux conditions :
+    \begin{itemize}
+        \item On n'applique que les nouveaux déclencheurs (ceux qui n'ont pas été trouvés lors d'une étape précédente) ;
+        \item Il ne doit pas exister d'homomorphisme $h^e$ étendant $h$ tel que $h^e(tete) \subseteq \mathcal{F}$.
+    \end{itemize}}
+    \only<2>{
+    \begin{block}{Exemple}
+        $\mathcal{KB} = (\mathcal{F_0} = \{p(a,b)\}, \{r_1 = p(X,Y) \rightarrow p(Y,Z), P(Z,Z)\})$ 
+       \begin{itemize}
+           \item 1ère étape : on trouve $(r_1,h_1 = \{(X \mapsto a), (Y \mapsto b)\})$ \\
+           On ne trouve pas d'extension envoyant la tête sur la base de faits. On obtient $\mathcal{F}_1 = \mathcal{F}_0 \cup \{p(b,Z_1),p(Z_1,Z_1)\}$.
+           \item 2ème étape : on trouve $(r_1,h_2 = \{(X \mapsto b), (Y \mapsto Z_1)\})$ \\
+           On peut en étednre $h_2$ en $h_2^e = \{(X \mapsto b), (Y \mapsto Z_1), (Z \mapsto Z_1)\}$. En effet, $h^e_2(\{p(Y,Z), P(Z,Z)\} = \{p(Z_1,Z_1)\}$.
+           \item Pas de nouveaux faits : l'algorithme s'arrête.
+       \end{itemize}
+        
+    \end{block}}
+\end{frame}

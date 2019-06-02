@@ -1,0 +1,154 @@
+\section{Application des règles}
+
+\begin{frame}{Critère dérivé du restricted chase}
+\begin{itemize}
+\item Un premier critère d'applicabilité possible, similaire à celui du \textit{restricted chase}, est : $\exists h : B \mapsto Core(\mathcal{F}^i), frontierFreeze(Core(\mathcal{F}^i)) \not\vDash frontierFreeze(h^s(H))$
+
+\item Ce critère permet d'éviter des redondances par rapport aux atomes existant dans le \textit{core} de l'étape précédente, mais pas celles qui sont issues de règles que l'on vient juste d'appliquer.
+
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Critère amélioré}
+\begin{itemize}
+\item L'idée serait donc que la vérification de la redondance issue de la tête se ferait, elle, à partir du \textit{core} avec en plus les ajouts issus des applications de règles faits au cours de la même étape. 
+\item On aurait donc :
+$\exists h : B \rightarrow Core(\mathcal{F}^i), frontierFreeze(Core(\mathcal{F}^{i})\cup\mathcal{F}^{courant}) \not\vDash frontierFreeze(h^s(H))$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Exemple pour comparaison}
+Soit la base de connaissances $\mathcal{KB} = (\mathcal{F}, \mathcal{R})$ avec $\mathcal{F} = \{p(a,b), p(c,d)\}$ et $\mathcal{R} = \{r = p(X,Y), p(U,W) \rightarrow q(X,Z), q(Z,X), p(Z,V), q(U,Z), q(Z,U)\}$.
+\par L'ensemble $\mathcal{F}$ peut être représenté par le graphe suivant :
+\par \begin{asy}
+// préambule asymptote
+usepackage("amsmath,amssymb");
+usepackage("inputenc","utf8");
+usepackage("icomma");
+// code figure
+unitsize(1cm,1cm);
+object sommet0=draw(Label("a"),ellipse,(0,0),NoFill);
+object sommet1=draw(Label("b"),ellipse,(2,0),NoFill);
+object sommet2=draw(Label("c"),ellipse,(6,0),NoFill);
+object sommet3=draw(Label("d"),ellipse,(8,0),NoFill);
+add(new void(picture pic, transform t) {
+path arete01=point(sommet0,dir(degrees((2,0),true)),t){dir(degrees((2,0),true))}..point(sommet1,dir(180+degrees((2,0),true)),t);
+draw(pic,arete01,Arrow);
+label(pic,scale(.7)*"p",relpoint(arete01,.5),Relative(dir(90+degrees((2,0),true))),Fill(1,white));
+path arete23=point(sommet2,dir(degrees((2,0),true)),t){dir(degrees((2,0),true))}..point(sommet3,dir(180+degrees((2,0),true)),t);
+draw(pic,arete23,Arrow);
+label(pic,scale(.7)*"p",relpoint(arete23,.5),Relative(dir(90+degrees((2,0),true))),Fill(1,white));
+});
+shipout(bbox(0.1cm,0.1cm,white));
+\end{asy}
+\end{frame}
+
+
+\begin{frame}[fragile]{Exemple pour comparaison}
+Appliquons une première fois la règle $r$ tel que $h = \{(X \mapsto a), (Y \mapsto b), (U \mapsto c), (W \mapsto d)\}$.
+\par \begin{asy}
+// préambule asymptote
+usepackage("amsmath,amssymb");
+usepackage("inputenc","utf8");
+usepackage("icomma");
+// code figure
+unitsize(1cm,1cm);
+object sommet0=draw(Label("V0"),ellipse,(0,0),NoFill);
+object sommet1=draw(Label("Z0"),ellipse,(2,0),NoFill);
+object sommet2=draw(Label("a"),ellipse,(2,-2),NoFill);
+object sommet3=draw(Label("b"),ellipse,(0,-2),NoFill);
+object sommet4=draw(Label("c"),ellipse,(6,-2),NoFill);
+object sommet5=draw(Label("d"),ellipse,(8,-2),NoFill);
+add(new void(picture pic, transform t) {
+path arete10=point(sommet1,dir(degrees((-2,0),true)),t){dir(degrees((-2,0),true))}..point(sommet0,dir(180+degrees((-2,0),true)),t);
+draw(pic,arete10,Arrow);
+label(pic,scale(.7)*"p",relpoint(arete10,.5),Relative(dir(90+degrees((-2,0),true))),Fill(1,white));
+path arete12=point(sommet1,dir(degrees((0,-2),true)),t){dir(25+degrees((0,-2),true))}..point(sommet2,dir(180+degrees((0,-2),true)),t);
+draw(pic,arete12,Arrow);
+label(pic,scale(.7)*"q",relpoint(arete12,.5),Relative(dir(90+degrees((0,-2),true))),Fill(1,white));
+path arete21=point(sommet2,dir(degrees((0,2),true)),t){dir(25+degrees((0,2),true))}..point(sommet1,dir(180+degrees((0,2),true)),t);
+draw(pic,arete21,Arrow);
+label(pic,scale(.7)*"q",relpoint(arete21,.5),Relative(dir(90+degrees((0,2),true))),Fill(1,white));
+path arete14=point(sommet1,dir(degrees((4,-2),true)),t){dir(25+degrees((4,-2),true))}..point(sommet4,dir(180+degrees((4,-2),true)),t);
+draw(pic,arete14,Arrow);
+label(pic,scale(.7)*"q",relpoint(arete14,.5),Relative(dir(90+degrees((4,-2),true))),Fill(1,white));
+path arete41=point(sommet4,dir(degrees((-4,2),true)),t){dir(25+degrees((-4,2),true))}..point(sommet1,dir(180+degrees((-4,2),true)),t);
+draw(pic,arete41,Arrow);
+label(pic,scale(.7)*"q",relpoint(arete41,.5),Relative(dir(90+degrees((-4,2),true))),Fill(1,white));
+path arete23=point(sommet2,dir(degrees((-2,0),true)),t){dir(degrees((-2,0),true))}..point(sommet3,dir(180+degrees((-2,0),true)),t);
+draw(pic,arete23,Arrow);
+label(pic,scale(.7)*"p",relpoint(arete23,.5),Relative(dir(90+degrees((-2,0),true))),Fill(1,white));
+path arete45=point(sommet4,dir(degrees((2,0),true)),t){dir(degrees((2,0),true))}..point(sommet5,dir(180+degrees((2,0),true)),t);
+draw(pic,arete45,Arrow);
+label(pic,scale(.7)*"p",relpoint(arete45,.5),Relative(dir(90+degrees((2,0),true))),Fill(1,white));
+});
+shipout(bbox(0.1cm,0.1cm,white));
+
+
+\end{asy}
+\end{frame}
+
+\begin{frame}[fragile]{Exemple pour comparaison}
+Appliquons la une deuxième fois, cette fois-ci avec $h' = \{(X \mapsto c), (Y \mapsto d), (U \mapsto a), (W \mapsto b)\}$.
+\par Avec la première condition d'applicabilité, on obtient :
+\par \begin{asy}
+// préambule asymptote
+usepackage("amsmath,amssymb");
+usepackage("inputenc","utf8");
+usepackage("icomma");
+// code figure
+unitsize(1cm,1cm);
+object sommet0=draw(Label("V0"),ellipse,(0,0),NoFill);
+object sommet1=draw(Label("Z0"),ellipse,(2,0),NoFill);
+object sommet2=draw(Label("V1"),ellipse,(8,0),NoFill);
+object sommet3=draw(Label("Z1"),ellipse,(6,0),NoFill);
+object sommet4=draw(Label("a"),ellipse,(2,-2),NoFill);
+object sommet5=draw(Label("b"),ellipse,(0,-2),NoFill);
+object sommet6=draw(Label("c"),ellipse,(6,-2),NoFill);
+object sommet7=draw(Label("d"),ellipse,(8,-2),NoFill);
+add(new void(picture pic, transform t) {
+path arete10=point(sommet1,dir(degrees((-2,0),true)),t){dir(degrees((-2,0),true))}..point(sommet0,dir(180+degrees((-2,0),true)),t);
+draw(pic,arete10,Arrow);
+label(pic,scale(.7)*"p",relpoint(arete10,.5),Relative(dir(90+degrees((-2,0),true))),Fill(1,white));
+path arete14=point(sommet1,dir(degrees((0,-2),true)),t){dir(25+degrees((0,-2),true))}..point(sommet4,dir(180+degrees((0,-2),true)),t);
+draw(pic,arete14,Arrow);
+label(pic,scale(.7)*"q",relpoint(arete14,.5),Relative(dir(90+degrees((0,-2),true))),Fill(1,white));
+path arete41=point(sommet4,dir(degrees((0,2),true)),t){dir(25+degrees((0,2),true))}..point(sommet1,dir(180+degrees((0,2),true)),t);
+draw(pic,arete41,Arrow);
+label(pic,scale(.7)*"q",relpoint(arete41,.5),Relative(dir(90+degrees((0,2),true))),Fill(1,white));
+path arete16=point(sommet1,dir(degrees((4,-2),true)),t){dir(25+degrees((4,-2),true))}..point(sommet6,dir(180+degrees((4,-2),true)),t);
+draw(pic,arete16,Arrow);
+label(pic,scale(.7)*"q",relpoint(arete16,.5),Relative(dir(90+degrees((4,-2),true))),Fill(1,white));
+path arete61=point(sommet6,dir(degrees((-4,2),true)),t){dir(25+degrees((-4,2),true))}..point(sommet1,dir(180+degrees((-4,2),true)),t);
+draw(pic,arete61,Arrow);
+label(pic,scale(.7)*"q",relpoint(arete61,.5),Relative(dir(90+degrees((-4,2),true))),Fill(1,white));
+path arete32=point(sommet3,dir(degrees((2,0),true)),t){dir(degrees((2,0),true))}..point(sommet2,dir(180+degrees((2,0),true)),t);
+draw(pic,arete32,Arrow);
+label(pic,scale(.7)*"p",relpoint(arete32,.5),Relative(dir(90+degrees((2,0),true))),Fill(1,white));
+path arete34=point(sommet3,dir(degrees((-4,-2),true)),t){dir(25+degrees((-4,-2),true))}..point(sommet4,dir(180+degrees((-4,-2),true)),t);
+draw(pic,arete34,Arrow);
+label(pic,scale(.7)*"q",relpoint(arete34,.5),Relative(dir(90+degrees((-4,-2),true))),Fill(1,white));
+path arete43=point(sommet4,dir(degrees((4,2),true)),t){dir(25+degrees((4,2),true))}..point(sommet3,dir(180+degrees((4,2),true)),t);
+draw(pic,arete43,Arrow);
+label(pic,scale(.7)*"q",relpoint(arete43,.5),Relative(dir(90+degrees((4,2),true))),Fill(1,white));
+path arete36=point(sommet3,dir(degrees((0,-2),true)),t){dir(25+degrees((0,-2),true))}..point(sommet6,dir(180+degrees((0,-2),true)),t);
+draw(pic,arete36,Arrow);
+label(pic,scale(.7)*"q",relpoint(arete36,.5),Relative(dir(90+degrees((0,-2),true))),Fill(1,white));
+path arete63=point(sommet6,dir(degrees((0,2),true)),t){dir(25+degrees((0,2),true))}..point(sommet3,dir(180+degrees((0,2),true)),t);
+draw(pic,arete63,Arrow);
+label(pic,scale(.7)*"q",relpoint(arete63,.5),Relative(dir(90+degrees((0,2),true))),Fill(1,white));
+path arete45=point(sommet4,dir(degrees((-2,0),true)),t){dir(degrees((-2,0),true))}..point(sommet5,dir(180+degrees((-2,0),true)),t);
+draw(pic,arete45,Arrow);
+label(pic,scale(.7)*"p",relpoint(arete45,.5),Relative(dir(90+degrees((-2,0),true))),Fill(1,white));
+path arete67=point(sommet6,dir(degrees((2,0),true)),t){dir(degrees((2,0),true))}..point(sommet7,dir(180+degrees((2,0),true)),t);
+draw(pic,arete67,Arrow);
+label(pic,scale(.7)*"p",relpoint(arete67,.5),Relative(dir(90+degrees((2,0),true))),Fill(1,white));
+});
+shipout(bbox(0.1cm,0.1cm,white));
+
+
+
+\end{asy}
+\par Mais avec la seconde condition d'applicabilité, cette application n'a pas lieu car elle est redondante avec la précédente.
+\end{frame}

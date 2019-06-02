@@ -1,0 +1,192 @@
+\begin{frame}{Redondances inter-règles}
+    Si une règle $R$ est redondante à une base de règles $\mathcal{R}$ alors elle peut être inférée par $\mathcal{R} \backslash R$.
+    
+    \begin{block}{Exemple}
+        Soit la base de règles $\mathcal{R} = \{ R_1 = p(X) \xrightarrow{} q(X), R_2 = p(X) \xrightarrow{} t(X), R_3 = q(x) \xrightarrow{} t(X)\}$
+    \end{block}
+    
+    Nous verrons lors de l'application de l'algorithme sur cet exemple que $R_2$ peut être inférée par $\mathcal{R} \backslash R_2$.
+    
+\end{frame}
+
+\begin{frame}{Redondances inter-règles}
+   
+   Algorithme pour supprimer les redondances inter-règles :
+    
+    \begin{itemize}
+        \item On ajoute le corps de $R$ à une base de fait $\mathcal{F}$
+        \item On construit la base de connaissance $\mathcal{KB} = \{\mathcal{F}, \mathcal{R} \backslash R \}$
+        \item On sature $\mathcal{KB}$ et on obtient $\mathcal{F}^*$ la base de faits saturée
+        \item On gèle la frontière de $R$ et on cherche si la tête de $R$ se trouve dans $\mathcal{F}^*$.
+    \end{itemize}
+    
+    La saturation d'une base de faits étant infinie, il est préférable de prévoir un arrêt au bout d'un certains nombre d'étapes.
+    
+\end{frame}
+
+\begin{comment}
+
+
+\begin{frame}{Redondances inter-règles}
+   
+   Algorithme pour supprimer les redondances inter-règles :
+    
+    \begin{itemize}
+        \color{red}
+        \item On ajoute le corps de $R$ à une base de fait $\mathcal{F}$
+        \item On construit la base de connaissance $\mathcal{KB} = \{\mathcal{F}, \mathcal{R} \backslash R \}$
+        \color{black}
+        \item On sature $\mathcal{KB}$ et on obtient $\mathcal{F}^*$ la base de faits saturée
+        \item On gèle la frontière de $R$ et on cherche si la tête de $R$ se trouve dans $\mathcal{F}^*$
+    \end{itemize}
+    
+    \begin{block}{Exemple}
+          Soit la base de règles $\mathcal{R} = \{ R_1 = p(X) \xrightarrow{} q(X), R_2 = p(X) \xrightarrow{} t(X), R_3 = q(x) \xrightarrow{} t(X)\}$. On commence par traiter $R_1$ et on construit la base de connaissances $\mathcal{KB} = \{ \{p(X)\}, \mathcal{R} \backslash R_1\}$.
+    \end{block}
+    
+\end{frame}
+
+\begin{frame}{Redondances inter-règles}
+   
+   Algorithme pour supprimer les redondances inter-règles :
+    
+    \begin{itemize}
+        \item On ajoute le corps de $R$ à une base de fait $\mathcal{F}$
+        \item On construit la base de connaissance $\mathcal{KB} = \{\mathcal{F}, \mathcal{R} \backslash R \}$
+        \color{red}
+        \item On sature $\mathcal{KB}$ et on obtient $\mathcal{F}^*$ la base de faits saturée
+        \item On gèle la frontière de $R$ et on cherche si la tête de $R$ se trouve dans $\mathcal{F}^*$.
+        \color{black}
+    \end{itemize}
+    
+    \begin{block}{Exemple}
+          Soit la base de règles $\mathcal{R} \backslash R_1 = \{R_2 = p(X) \xrightarrow{} t(X), R_3 = q(x) \xrightarrow{} t(X)\}$. On sature $\mathcal{F} = \{p(X)\}$ et on obtient $\mathcal{F}^* = \{p(X), t(X)\}$. Ici $q(X)$ n'appartient pas à $\mathcal{F}^*$ donc $R_1$ n'est pas redondante.
+    \end{block}
+    
+\end{frame}
+
+\end{comment}
+
+
+\begin{frame}{Redondances inter-règles}
+   
+   Algorithme pour supprimer les redondances inter-règles :
+    
+    \begin{itemize}
+        \color{red}
+        \item On ajoute le corps de $R$ à une base de fait $\mathcal{F}$
+        \item On construit la base de connaissance $\mathcal{KB} = \{\mathcal{F}, \mathcal{R} \backslash R \}$
+        \color{black}
+        \item On sature $\mathcal{KB}$ et on obtient $\mathcal{F}^*$ la base de faits saturée
+        \item On gèle la frontière de $R$ et on cherche si la tête de $R$ se trouve dans $\mathcal{F}^*$.
+    \end{itemize}
+    
+    \begin{block}{Exemple}
+          Soit la base de règles $\mathcal{R} = \{ R_1 = p(X) \xrightarrow{} q(X), R_2 = p(X) \xrightarrow{} t(X), R_3 = q(x) \xrightarrow{} t(X)\}$. On traite $R_2$ et on construit la base de connaissances $\mathcal{KB} = \{ \{p(X)\}, \mathcal{R} \backslash R_2\}$.
+    \end{block}
+    
+\end{frame}
+
+\begin{frame}{Redondances inter-règles}
+   
+  Algorithme pour supprimer les redondances inter-règles :
+    
+    \begin{itemize}
+        \item On ajoute le corps de $R$ à une base de fait $\mathcal{F}$
+        \item On construit la base de connaissance $\mathcal{KB} = \{\mathcal{F}, \mathcal{R} \backslash R \}$
+        \color{red}
+        \item On sature $\mathcal{KB}$ et on obtient $\mathcal{F}^*$ la base de faits saturée
+        \item On gèle la frontière de $R$ et on cherche si la tête de $R$ se trouve dans $\mathcal{F}^*$.
+        \color{black}
+    \end{itemize}
+    
+    \begin{block}{Exemple}
+          Soit la base de règles $\mathcal{R} \backslash R_2 = \{ R_1 = p(X) \xrightarrow{} q(X), R_3 = q(x) \xrightarrow{} t(X)\}$. On sature $\mathcal{F} = \{p(X)\}$ et on obtient $\mathcal{F}^* = \{p(X), q(X), t(X)\}$. Ici $t(X)$ appartient à $\mathcal{F}^*$ donc $R_2$ est redondante. On peut donc la supprimer de la base de règles.
+    \end{block}
+    
+\end{frame}
+
+
+\begin{frame}{Redondances inter-règles}
+   
+  Algorithme pour supprimer les redondances inter-règles :
+    
+    \begin{itemize}
+        \item On ajoute le corps de $R$ à une base de fait $\mathcal{F}$
+        \item On construit la base de connaissance $\mathcal{KB} = \{\mathcal{F}, \mathcal{R} \backslash R \}$
+     
+        \item On sature $\mathcal{KB}$ et on obtient $\mathcal{F}^*$ la base de faits saturée
+        \item On gèle la frontière de $R$ et on cherche si la tête de $R$ se trouve dans $\mathcal{F}^*$.
+   
+    \end{itemize}
+    
+    \begin{block}{Exemple}
+    $R_1$ et $R_3$ n'est pas redondante. 
+        Soit la nouvelle base de règles $\mathcal{R}' = \{ R_1 = p(X) \xrightarrow{} q(X), R_3 = q(x) \xrightarrow{} t(X)\}$ sans redondance inter-règles.
+    \end{block}
+    
+\end{frame}
+
+
+\begin{comment}
+\begin{frame}{Redondances inter-règles}
+   
+   Algorithme pour supprimer les redondances inter-règles :
+    
+    \begin{itemize}
+        \color{red}
+        \item On ajoute le corps de $R$ à une base de fait $\mathcal{F}$
+        \item On construit la base de connaissance $\mathcal{KB} = \{\mathcal{F}, \mathcal{R} \backslash R \}$
+        \color{black}
+        \item On sature $\mathcal{KB}$ et on obtient $\mathcal{F}^*$ la base de faits saturée
+        \item On gèle la frontière de $R$ et on cherche si la tête de $R$ se trouve dans $\mathcal{F}^*$.
+    \end{itemize}
+    
+    \begin{block}{Exemple}
+          Soit la base de règles $\mathcal{R}' = \{ R_1 = p(X) \xrightarrow{} q(X), R_3 = q(x) \xrightarrow{} t(X)\}$. On traite $R_3$ et on construit la base de connaissances $\mathcal{KB} = \{ \{q(X)\}, \mathcal{R} \backslash R_3\}$.
+    \end{block}
+    
+\end{frame}
+
+\begin{frame}{Redondances inter-règles}
+   
+   Algorithme pour supprimer les redondances inter-règles :
+    
+    \begin{itemize}
+        \item On ajoute le corps de $R$ à une base de fait $\mathcal{F}$
+        \item On construit la base de connaissance $\mathcal{KB} = \{\mathcal{F}, \mathcal{R} \backslash R \}$
+        \color{red}
+        \item On sature $\mathcal{KB}$ et on obtient $\mathcal{F}^*$ la base de faits saturée
+        \item On gèle la frontière de $R$ et on cherche si la tête de $R$ se trouve dans $\mathcal{F}^*$.
+        \color{black}
+    \end{itemize}
+    
+    \begin{block}{Exemple}
+          Soit la base de règles $\mathcal{R}' \backslash R_3 = \{ R_1 = p(X) \xrightarrow{} q(X)$. On sature $\mathcal{F} = \{q(X)\}$ et on obtient $\mathcal{F}^* = \mathcal{F}$. Ici $t(X)$ n'appartient pas à $\mathcal{F}^*$ donc $R_3$ n'est pas redondante. 
+    \end{block}
+    
+\end{frame}
+
+
+
+
+\begin{frame}{Redondances inter-règles}
+   
+   Algorithme pour supprimer les redondances inter-règles :
+    
+    \begin{itemize}
+        \color{red}
+        \item On ajoute le corps de $R$ à une base de fait $\mathcal{F}$
+        \item On construit la base de connaissance $\mathcal{KB} = \{\mathcal{F}, \mathcal{R} \backslash R \}$
+        \color{black}
+        \item On sature $\mathcal{KB}$ et on obtient $\mathcal{F}^*$ la base de faits saturée
+        \item On gèle la frontière de $R$ et on cherche si la tête de $R$ se trouve dans $\mathcal{F}^*$
+    \end{itemize}
+    
+    \begin{block}{Exemple}
+         La base de règles $\mathcal{R} = \{ R_1 = p(X) \xrightarrow{} q(X), R_2 = p(X) \xrightarrow{} t(X), R_3 = q(x) \xrightarrow{} t(X)\}$ devient $\mathcal{R}' = \{ R_1 = p(X) \xrightarrow{} q(X), R_3 = q(x) \xrightarrow{} t(X)\}$ sans redondances inter-règles.
+    \end{block}
+    
+\end{frame}
+
+\end{comment}
