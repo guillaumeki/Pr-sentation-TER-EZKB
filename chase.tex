@@ -16,13 +16,13 @@
         Un délencheur est un couple $(R,h)$ où $R = B \rightarrow H$ est une règle et $h$ un homomorphisme permettant d'envoyer $B$, le corps de la règle $R$, sur la base de faits.
     \end{block}
     \begin{block}{Application d'un déclencheur}
-        Pour appliquer $(R,h)$, on crée une substitution $h^{safe}$ qui est une extension de $h$ où les variables existentielles de la tête de la règle sont envoyées sur des variables n'existant pas dans la base de faits.
+        Pour appliquer $(R,h)$, on crée une substitution $h^{safe}$ qui est une extension de $h$ où les variables existentielles de la tête de la règle sont renommées avec une nouvelle variable fraîche.
     \end{block}
     \begin{block}{Exemple}
-        $\mathcal{KB} = (\mathcal{F} = \{p(a,b),q(Y)\}, \{r_1 = p(a,X) \rightarrow p(X,Y)\})$ \\
-        $(r_1,h = \{(X \mapsto b)\})$ et
-        $h^{safe} = \{(X \mapsto b), (Y \mapsto Y_1)\}$ \\
-        $\mathcal{F}^* = \mathcal{F} \cup h^{safe}(p(X,Y)) = \{p(a,b),q(Y),p(a,Y_1)\}$
+        $\mathcal{KB} = (\mathcal{F} = \{p(a,b)\}, \{r_1 = p(X,Y) \rightarrow p(X,Z)\})$ \\
+        $(r_1,h = \{(X \mapsto a), (Y \mapsto b)\})$ et
+        $h^{safe} = \{(X \mapsto a), (Y \mapsto b), (Z \mapsto Z_0)\}$ \\
+        $\mathcal{F}^* = \mathcal{F} \cup h^{safe}(p(X,Z)) = \{p(a,b),p(a,Z_0)\}$
     \end{block}
 \end{frame}
 

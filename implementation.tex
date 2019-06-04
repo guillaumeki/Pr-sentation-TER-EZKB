@@ -1,21 +1,46 @@
 \begin{frame}{Objectifs de la nouvelle implémentation}
     \begin{itemize}
         \item Proposer une implémentation destinée à remplacer celle existante.
-        \item Être suffisamment flexible pour pouvoir implémenter tous les chaînages avant étudiés et pour pouvoir évoluer facilement ;
+        \item Être suffisamment extensible pour pouvoir implémenter tous les chaînages avant étudiés et pour pouvoir évoluer facilement ;
         \item Être mieux structurée que l'implémentation existante ;
         \item Essayer d'améliorer les performances ;
     \end{itemize}
     Ces objectifs ont été globalement atteints.
 \end{frame}
 
-\begin{frame}{Structuration}
-    \begin{itemize}
-        \item Des classes principales implémentant le chaînage avant ;
-        \item Auxquelles on fournit :
-        \begin{itemize}
-            \item Une classe applicatrice des règles (flexibilité importante, par exemple version spécifique à une base de donnée) ;
-            \item Des classes implémentant les extensions (locale et globale) ;
-            \item Une classe vérifiant le critère d'applicabilité.
-        \end{itemize}
-    \end{itemize}
+\begin{frame}{Structuration et implémentation}
+
+\begin{algorithm}[H]\label{algo:chainage_avant_largeur}
+\setstretch{1}
+\caption{Chaînage avant en largeur}
+\SetAlgoLined
+\DontPrintSemicolon
+{\footnotesize
+\SetKwInOut{Input}{entrées}
+\SetKwInOut{Output}{sortie}
+\Input{une base de faits $\mathcal{F}$, une base de règles $\mathcal{R}$}
+\Output{la base de faits saturée $\mathcal{F^*}$}
+\SetKwRepeat{Do}{faire}{tant que}
+
+$\mathcal{F}^* \gets \mathcal{F}$\;
+
+\Do{$nouvFaits \not= \emptyset$}
+{
+    $nouvFaits\gets \emptyset$ \;
+    \ForEach{règle : $ R = B \rightarrow  H \in \mathcal{R}$} 
+    {
+        \ForEach{\textcolor{green}{déclencheur} $(R,h)$} 
+        {
+            \uIf{$\textcolor{blue}{estApplicable(R,h)}$}
+            {
+                $nouvFaits \leftarrow \textcolor{red}{\mbox{\textit{étendreLocalement}}(nouvFaits, (R,h))}$\;
+            }
+        }
+    }
+    $\mathcal{F}^*\gets \textcolor{red}{\mbox{\textit{étendreGlobalement}}(\mathcal{F}^*, nouvFaits)}$\;
+}
+\Return $\mathcal{F}^*$
+}
+\end{algorithm}
+     
 \end{frame}

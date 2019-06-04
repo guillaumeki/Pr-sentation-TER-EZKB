@@ -1,0 +1,34 @@
+\begin{frame}{Semi-oblivious chase}
+   \only<1>{Un déclencheur $(R = B \rightarrow H,h)$ est applicable ssi :
+    \begin{itemize}
+        \item L'algorithme n'as pas déjà appliqué un déclencheur $(R,g)$ tel que $h(frontier(R)) = g(frontier(R))$
+    \end{itemize}}
+    
+    \only<2>{
+    \begin{block}{Exemple}
+        
+        $\mathcal{F}=\{ hasExpertise(bob,maths)\}$ \\
+$\mathcal{R} = \{ R1 = hasExpertise(X,Y) \rightarrow worksInProject(X,Z), \\R2 = worksInProject(X,Y) \rightarrow hasExpertise(X,W)  \}$
+
+\begin{center}
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.3cm,
+                    semithick]
+  \tikzstyle{every state}=[fill=green!20,circle,text=black,minimum size=0.7cm]
+
+  \node[state]				(A)              			{$b$};
+  \node[state]				(B)  [above right of=A]  			{$m$};
+  \node[state]		(C)  [right of=B]			{$Z_1$};
+  \node[state,fill=red]		(E)  [below right of=A]			{$Z_2$};
+  \node[state]		(D)  [right of=E]			{$W_1$};
+    
+  \path (A) edge node[above] {$h$} 	(B);
+  \path (A) edge node[above] {$w$} 	(C); 
+\path (A) edge node[above] {$h$} 	(D);
+\path (A) edge [color=red] node[above] {$w$} 	(E);
+  
+\end{tikzpicture}
+\end{center}
+        
+    \end{block}
+    }
+\end{frame}

@@ -1,19 +1,46 @@
 \begin{frame}{Restricted chase}
-   \only<1>{ On n'applique un déclencheur $(r = corps \rightarrow tete,h)$ qu'à deux conditions :
+   \only<1>{Un déclencheur $(R = B \rightarrow H,h)$ est applicable ssi :
     \begin{itemize}
-        \item On n'applique que les nouveaux déclencheurs (ceux qui n'ont pas été trouvés lors d'une étape précédente) ;
-        \item Il ne doit pas exister d'homomorphisme $h^e$ étendant $h$ tel que $h^e(tete) \subseteq \mathcal{F}$.
+        %\item On n'applique que les nouveaux déclencheurs (ceux qui n'ont pas été trouvés lors d'une étape précédente) ;
+        \item Il ne existe pas d'homomorphisme $h^e$ étendant $h$ tel que $h^e(H) \subseteq \mathcal{F}$.
     \end{itemize}}
     \only<2>{
+    
     \begin{block}{Exemple}
-        $\mathcal{KB} = (\mathcal{F_0} = \{p(a,b)\}, \{r_1 = p(X,Y) \rightarrow p(Y,Z), P(Z,Z)\})$ 
-       \begin{itemize}
-           \item 1ère étape : on trouve $(r_1,h_1 = \{(X \mapsto a), (Y \mapsto b)\})$ \\
-           On ne trouve pas d'extension envoyant la tête sur la base de faits. On obtient $\mathcal{F}_1 = \mathcal{F}_0 \cup \{p(b,Z_1),p(Z_1,Z_1)\}$.
-           \item 2ème étape : on trouve $(r_1,h_2 = \{(X \mapsto b), (Y \mapsto Z_1)\})$ \\
-           On peut en étednre $h_2$ en $h_2^e = \{(X \mapsto b), (Y \mapsto Z_1), (Z \mapsto Z_1)\}$. En effet, $h^e_2(\{p(Y,Z), P(Z,Z)\} = \{p(Z_1,Z_1)\}$.
-           \item Pas de nouveaux faits : l'algorithme s'arrête.
-       \end{itemize}
         
-    \end{block}}
+        $\mathcal{F}=\{ hasExpertise(bob,maths)\}$ \\
+$\mathcal{R} = \{ R1 = hasExpertise(X,Y) \rightarrow worksInProject(X,Z), \\R2 = worksInProject(X,Y) \rightarrow hasExpertise(X,W)  \}$
+
+\begin{center}
+\begin{tikzpicture}[->,>=stealth',shorten >=1pt,auto,node distance=2.3cm,
+                    semithick]
+  \tikzstyle{every state}=[fill=green!20,circle,text=black,minimum size=0.7cm]
+
+  \node[state]				(A)              			{$b$};
+  \node[state]				(B)  [above right of=A]  			{$m$};
+  \node[state]		(C)  [right of=B]			{$Z_1$};
+  \node[state,fill=red]		(D)  [below right of=A]			{$W_1$};
+    
+  \path (A) edge node[above] {$h$} 	(B);
+  \path (A) edge node[above] {$w$} 	(C); 
+\path (A) edge [color=red] node[above] {$h$} 	(D);
+  
+\end{tikzpicture}
+\end{center}
+        
+    \end{block}
+    
+    
+    % \begin{block}{Exemple}
+    %     $\mathcal{KB} = (\mathcal{F_0} = \{p(a,b)\}, \{r_1 = p(X,Y) \rightarrow p(Y,Z), P(Z,Z)\})$ 
+    %   \begin{itemize}
+    %       \item 1ère étape : on trouve $(r_1,h_1 = \{(X \mapsto a), (Y \mapsto b)\})$ \\
+    %       On ne trouve pas d'extension envoyant la tête sur la base de faits. On obtient $\mathcal{F}_1 = \mathcal{F}_0 \cup \{p(b,Z_1),p(Z_1,Z_1)\}$.
+    %       \item 2ème étape : on trouve $(r_1,h_2 = \{(X \mapsto b), (Y \mapsto Z_1)\})$ \\
+    %       On peut en étendre $h_2$ en $h_2^e = \{(X \mapsto b), (Y \mapsto Z_1), (Z \mapsto Z_1)\}$. En effet, $h^e_2(\{p(Y,Z), P(Z,Z)\} = \{p(Z_1,Z_1)\}$.
+    %       \item Pas de nouveaux faits : l'algorithme s'arrête.
+    %   \end{itemize}
+        
+    % \end{block}
+    }
 \end{frame}

@@ -21,12 +21,92 @@
     Il existe 2 formes de redondances intra-règle :
 
     \begin{itemize}
-        \item Les redondances du corps dans le corps de la règle ; 
-        \item Les redondances de la tête sur le corps et la tête de la règle
+        \item Les redondances dans le corps de la règle 
+        \item Les redondances de la tête sur le corps et dans la tête de la règle
     \end{itemize}
     
-    On va présenter la deuxième forme de redondance.
    
+\end{frame}
+
+\begin{frame}{Redondances intra-règle}
+
+    Il existe 2 formes de redondances intra-règle :
+
+    \begin{itemize}
+        \color{red}
+        \item Les redondances dans le corps de la règle 
+        \color{black}
+        \item Les redondances de la tête sur le corps et dans la tête de la règle
+    \end{itemize}
+    
+   \begin{block}{Exemple}
+        Soit la règle $R = $ \color{blue}p(X)\color{black} $\land$ \color{red}$ p(Y) $\color{black} $\xrightarrow{} \exists Z.q($\color{blue}X\color{black}$,Z)$.
+    \end{block}
+    \begin{tikzpicture}[->,>=stealth,shorten >=1pt,auto,node distance=2.5cm,
+               thick,main node/.style={circle,draw,font=\Large\bfseries,scale=0.6}]
+    \node[main node] (1) [blue] {$X$};
+  \node[main node] (2) [below of=1, red] {$Y$};
+  \node[main node] (3) [right of=2] {$Z$};
+
+  \path
+    (1) edge [loop above, blue] node {p} (1)
+    (1) edge node {q} (3)
+    (2) edge [loop above, red] node {p} (2)
+  ;
+\end{tikzpicture}
+
+On obtient $R' = p(X) \xrightarrow{} \exists Z.q(X,Z)$.
+   
+\end{frame}
+
+
+\begin{frame}{Redondances intra-règle}
+
+    Il existe 2 formes de redondances intra-règle :
+
+    \begin{itemize}
+       
+        \item Les redondances dans le corps de la règle 
+         \color{red}
+     
+        \item Les redondances de la tête sur le corps et dans la tête de la règle
+           \color{black}
+    \end{itemize}
+
+    \begin{block}{Exemple}
+        Soit la règle $R = $\color{blue}p(X,Y)\color{black} $\xrightarrow{} \exists Z,S,T. p($\color{blue}Y\color{black}$,Z) \land $ \color{red} $p(T,Z) \land p(S,T)$ \color{black}.
+    \end{block}
+    
+ \begin{tikzpicture}[->,>=stealth,shorten >=1pt,auto,node distance=2.5cm,
+                thick,main node/.style={circle,draw,font=\Large\bfseries,scale=0.6}]
+  \node[main node] (1) [blue] {$X$};
+  \node[main node] (2) [right of=1, blue] {$Y$};
+  \node[main node] (3) [right of=2] {$Z$};
+  \node[main node] (4) [right of=3, red] {$T$};
+  \node[main node] (5) [right of=4, red] {$S$};
+
+  \path
+    (1) edge [blue] node {p} (2) 
+    (2) edge node {p} (3)
+    (4) edge [red] node {p} (3)
+    (5) edge [red] node {p} (4)
+  ;
+\end{tikzpicture}
+
+ \begin{tikzpicture}[->,>=stealth,shorten >=1pt,auto,node distance=2.5cm,
+                thick,main node/.style={circle,draw,font=\Large\bfseries,scale=0.6}]
+  \node[main node] (1) [blue] {$X$};
+  \node[main node] (2) [right of=1, blue] {$Y$};
+  \node[main node] (3) [right of=2] {$Z$};
+
+  \path
+    (1) edge [blue] node {p} (2)
+    (2) edge node {p} (3)
+  ;
+\end{tikzpicture}
+
+On obtient la règle $R' = p(X,Y) \xrightarrow{} \exists Z.p(Y,Z)$
+
 \end{frame}
 
 
@@ -83,63 +163,35 @@
 %\end{frame}
     
 
-\begin{frame}{Redondances intra-règle}
-
-    
-    \begin{block}{Les redondances de la tête sur le corps et la tête de la règle }
-    On va chercher les atomes redondant et les supprimer tout en maintenant le corps car on cherche les redondances de la tête sur corps.
-    \end{block}
-\end{frame}
 
 \begin{frame}{Redondances intra-règle}
    
     \begin{block}{Comment supprimer ces redondances ? }
-        On va calculer le \textit{core} de l'union des atomes du corps dont les variables sont gelés et les atomes de la tête de la règle. 
+        On va utiliser le \textit{Core}. 
     \end{block}
     
-  
-    
-\end{frame}
-
-\begin{frame}{Redondances intra-règle}
-
-    Les redondances de la tête sur le corps et la tête de la règle :
-    \begin{block}{Exemple}
-        Soit la règle $R = p(X,Y) \xrightarrow{} p(Y,Z) \land p(T,Z) \land p(S,T)$.
-    \end{block}
-    Si on applique le \textit{core} à la base de faits $\mathcal{F}$, on obtient $\mathcal{F}' = \{p(X_f,Y_f),  p(Y_f,Z)\}$.
-       \begin{block}{Le graphe représentant $\{p(X_f,Y_f),  p(Y_f,Z), p(T,Z) , p(S,T)\}$}
+        
  \begin{tikzpicture}[->,>=stealth,shorten >=1pt,auto,node distance=2.5cm,
                 thick,main node/.style={circle,draw,font=\Large\bfseries,scale=0.6}]
-  \node[main node] (1) {$X_f$};
-  \node[main node] (2) [right of=1] {$Y_f$};
+  \node[main node] (1) [blue] {$X$};
+  \node[main node] (2) [right of=1, blue] {$Y$};
   \node[main node] (3) [right of=2] {$Z$};
   \node[main node] (4) [right of=3, red] {$T$};
   \node[main node] (5) [right of=4, red] {$S$};
 
   \path
-    (1) edge (2)
-    (2) edge (3)
-    (4) edge [red] (3)
-    (5) edge [red] (4)
+    (1) edge [blue] node {p} (2) 
+    (2) edge node {p} (3)
+    (4) edge [red] node {p} (3)
+    (5) edge [red] node {p} (4)
   ;
 \end{tikzpicture}
-\end{block} 
     
-    \begin{block}{Le graphe représentant $\{p(X,Y),  p(Y,Z)\}$}
- \begin{tikzpicture}[->,>=stealth,shorten >=1pt,auto,node distance=2.5cm,
-                thick,main node/.style={circle,draw,font=\Large\bfseries,scale=0.6}]
-  \node[main node] (1) {$X_f$};
-  \node[main node] (2) [right of=1] {$Y_f$};
-  \node[main node] (3) [right of=2] {$Z$};
-
-  \path
-    (1) edge (2)
-    (2) edge (3)
-  ;
-\end{tikzpicture}
-\end{block} 
+  
+    
 \end{frame}
+
+
 
 %\begin{frame}{Redondances intra-règles}
 

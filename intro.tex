@@ -1,11 +1,31 @@
+\begin{frame}{Qu'est-ce qu'une base de connaissances ?}
+    \begin{itemize}
+        \item<1-> Une base de faits - par exemple : $\mathcal{F} = enseigne(Jacques, algorithmique) \land suitCours(Julie, algorithmique)$
+        \item<2-> Une base de règle - par exemple : $\mathcal{R} = \{\forall X,Y. aPourProf(X,Y) \rightarrow estProfDe(Y,X),\linebreak \forall X,Y,Z.suitCours(X,Y) \land enseigne(Z,Y) \rightarrow aPourProf(X,Z) \}$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Quel est l'intérêt ?}
+    \begin{block}{Inférer des nouveaux faits de manière automatique}
+         \only<2->{$\mathcal{F} = enseigne(Jacques, algorithmique) \land \linebreak suitCours(Julie, algorithmique)$ \\
+         $\mathcal{R} = \{\forall X,Y. aPourProf(X,Y) \rightarrow estProfDe(Y,X),\linebreak \forall X,Y,Z.suitCours(X,Y) \land enseigne(Z,Y) \rightarrow aPourProf(X,Z) \}$ \\ 
+         \only<3->{On peut inférer :\\ \only<3>{$aPourProf(Julie,Jacques)$} \only<4->{
+            $aPourProf(Julie,Jacques), \linebreak estProfDe(Jacques, Julie)$\\
+         }
+         }
+         }
+         
+         \only<5->{C'est du chaînage avant (\textit{chase}).}
+    \end{block}
+\end{frame}
 
 \begin{frame}{Bases logiques}
     \begin{itemize}
-        \item Logique du premier ordre sans symbole fonctionnel ;
-        \item les objets sont des variables et les constantes ;
-        \item les relations entre les objets sont faites par des prédicats ;
-        \item un atome est de la forme $p(t_1,\ldots,t_n)$, avec $p$ un prédicat d'arité $n$ et des termes $t_i$ ;
-        \item Une conjonction d'atomes sera représentée par un ensemble d'atomes ;
+        \item Logique du premier ordre sans symbole fonctionnel 
+        \item Objets (termes) : \textbf{variables} et \textbf{constantes} 
+        \item relations entre les termes : \textbf{prédicats} 
+        \item \textbf{atome} : $p(t_1,\ldots,t_n)$
+        \item \textbf{conjonction d'atomes} représentée par un \textbf{ensemble d'atomes} ;
     \end{itemize}
     
     \begin{block}{Exemple}
@@ -13,24 +33,10 @@
     \end{block}
 \end{frame}
 
-\begin{frame}{Homomorphisme}
-    \begin{block}{Homomorphisme d'un ensemble d'atomes dans un autre} Soit $S$ et $S'$, deux ensembles d'atomes. Un homomorphisme est une substitution $h$ des variables de $S$ par des termes de $S'$ telle que $h(S) \subseteq S'$.
-    %Si on voit les ensembles d'atomes comme une conjonction d'atomes fermée existentiellement, alors $S$ s'envoie par homomorphisme dans $S'$ si et seulement si $S$ est conséquence logique de $S'$. Ceci explique pourquoi l'homomorphisme est la notion fondamentale pour le cadre que nous étudions. En particulier deux ensembles d'atomes sont équivalents si chacun s'envoie dans l'autre par homomorphisme. Ici, on le note $S \rightarrow S'$.
-    \end{block}
-    \begin{block}{Propriété}
-        $\exists h, h(S) \subseteq S' \Leftrightarrow S' \vDash S$
-    \end{block}
-    \begin{block}{Exemple}
-        $A = \{p(Z,b),p(b,Y)\}$\\
-        $B = \{p(a,b),p(b,X)\}$ \\
-        Il existe un homomorphimse $h$ tel que $h(A) \subseteq B$ : $h = \{(Z \mapsto a), (Y \mapsto X)\}$.
-    \end{block}
-\end{frame}
+\begin{frame}[fragile]{Graphe associé à un ensemble d'atomes}
+% Dans cette présentation, 2 représentations d'un ensemble d'atomes sont utilisées : graphe biparti et graphe orienté (arité < 2).
 
-\begin{frame}[fragile]{Représentations d'un ensemble d'atomes}
-Dans cette présentation, 2 représentations d'un ensemble d'atomes sont utilisées : graphe biparti et graphe orienté (arité < 2).
-
-\begin{block}{Graphe biparti représentant $\mathcal{F} = \{p(a,b,X), q(b,X), p(X,Y,a)\}$}
+\begin{block}{Graphe biparti associé à $\mathcal{F} = \{p(a,b,X), q(b,X), p(X,Y,a)\}$}
 \begin{asy}
 // préambule asymptote
 usepackage("amsmath,amssymb");
@@ -75,7 +81,7 @@ shipout(bbox(0.1cm,0.1cm,white));
 \end{asy}
 \end{block}
 
-\begin{block}{Graphe orienté représentant $\mathcal{F} = \{p(a,X), q(X,a), p(X,Y)\}$}
+\begin{block}{Graphe orienté associé à $\mathcal{F} = \{p(a,X), q(X,a), p(X,Y)\}$}
 \begin{asy}
 // préambule asymptote
 usepackage("amsmath,amssymb");
@@ -104,36 +110,6 @@ shipout(bbox(0.1cm,0.1cm,white));
 
 \end{frame}
 
-
-\begin{frame}{Base de connaissances}
-    \begin{block}{Base de connaissances}
-        Elle est composée d'une base de faits, qui est un ensemble d'atomes, et d'un ensemble de règles        Elle est composée d'une base de faits $\mathcal{F}$, qui est un ensemble d'atomes, et d'un ensemble de règles $\mathcal{R}$.
-
-.
-    \end{block}
-    
-    \begin{block}{Exemple}
-        $\mathcal{KB} = (\mathcal{F}, \mathcal{R})$
-        \\ $\mathcal{F} = \{estHumain(socrate)\}$
-        \\ $\mathcal{R} = \{r_1 = estHumain(X) \rightarrow estMortel(X)\}$.
-    \end{block}
-\end{frame}
-
-\begin{frame}{Règles}
-    \begin{block}{Règle}
-        De la forme $\mbox{corps} \rightarrow \mbox{tête}$ où le corps et la tête sont des ensembles d'atomes.
-    \end{block}
-    
-    \begin{block}{Règle Datalog}
-        Les termes du corps et de la tête sont des constantes ou sont des variables quantifiées universellement.
-        \par Exemple : $\forall X, p(a,X) \rightarrow p(X,a)$
-    \end{block}
-    
-    \begin{block}{Règle existentielle}
-        Pareil que Datalog, mais en plus, les variables présentes dans la tête mais pas dans le corps sont quantifiées existentiellement.
-        \par Exemple : $\forall X, p(a,X) \rightarrow \exists Y, p(X,Y)$
-    \end{block}
-\end{frame}
 
 \begin{frame}{Redondances}
     \begin{block}{Redondance}
@@ -164,3 +140,47 @@ shipout(bbox(0.1cm,0.1cm,white));
         
     \end{block}
 \end{frame}
+
+\begin{frame}{Homomorphisme}
+    \begin{block}{Homomorphisme d'un ensemble d'atomes dans un autre} Soit $S$ et $S'$, deux ensembles d'atomes. Un homomorphisme est une substitution $h$ des variables de $S$ par des termes de $S'$ telle que $h(S) \subseteq S'$.
+    %Si on voit les ensembles d'atomes comme une conjonction d'atomes fermée existentiellement, alors $S$ s'envoie par homomorphisme dans $S'$ si et seulement si $S$ est conséquence logique de $S'$. Ceci explique pourquoi l'homomorphisme est la notion fondamentale pour le cadre que nous étudions. En particulier deux ensembles d'atomes sont équivalents si chacun s'envoie dans l'autre par homomorphisme. Ici, on le note $S \rightarrow S'$.
+    \end{block}
+    \begin{block}{Propriété}
+        $\exists h, h(S) \subseteq S' \Leftrightarrow S' \vDash S$
+    \end{block}
+    \begin{block}{Exemple}
+        $A = \{p(Z,b),p(b,Y)\}$\\
+        $B = \{p(a,b),p(b,X)\}$ \\
+        Il existe un homomorphimse $h$ tel que $h(A) \subseteq B$ : $h = \{(Z \mapsto a), (Y \mapsto X)\}$.
+    \end{block}
+\end{frame}
+
+% \begin{frame}{Base de connaissances}
+%     \begin{block}{Base de connaissances}
+%         Elle est composée d'une base de faits, qui est un ensemble d'atomes, et d'un ensemble de règles        Elle est composée d'une base de faits $\mathcal{F}$, qui est un ensemble d'atomes, et d'un ensemble de règles $\mathcal{R}$.
+
+% .
+%     \end{block}
+    
+%     \begin{block}{Exemple}
+%         $\mathcal{KB} = (\mathcal{F}, \mathcal{R})$
+%         \\ $\mathcal{F} = \{estHumain(socrate)\}$
+%         \\ $\mathcal{R} = \{r_1 = estHumain(X) \rightarrow estMortel(X)\}$.
+%     \end{block}
+% \end{frame}
+
+% \begin{frame}{Règles}
+%     \begin{block}{Règle}
+%         De la forme $\mbox{corps} \rightarrow \mbox{tête}$ où le corps et la tête sont des ensembles d'atomes.
+%     \end{block}
+    
+%     \begin{block}{Règle Datalog}
+%         Les termes du corps et de la tête sont des constantes ou sont des variables quantifiées universellement.
+%         \par Exemple : $\forall X, p(a,X) \rightarrow p(X,a)$
+%     \end{block}
+    
+%     \begin{block}{Règle existentielle}
+%         Pareil que Datalog, mais en plus, les variables présentes dans la tête mais pas dans le corps sont quantifiées existentiellement.
+%         \par Exemple : $\forall X, p(a,X) \rightarrow \exists Y, p(X,Y)$
+%     \end{block}
+% \end{frame}
